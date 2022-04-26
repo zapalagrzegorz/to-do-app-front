@@ -1,56 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { Container, Paper, Stack, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { DefaultRootState, useSelector } from "react-redux";
+import "./App.css";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { RootState } from "./app/store";
+import { receiveStep, receiveSteps } from "./features/steps/stepsSlice";
+import { ToDoForm } from "./features/todo/ToDoForm";
+import { ToDoList } from "./features/todo/ToDoList";
+import {
+  receiveTodo,
+  receiveTodos,
+  removeTodo,
+  selectAllTodos,
+} from "./features/todo/todosSlice";
 
 function App() {
+  // called twice when not in useEffect!
+  useEffect(() => {
+    // dispatch(receiveTodos(initialState));
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <Container>
+        <Stack spacing={2}>
+          <Paper variant="outlined" sx={{ p: 3, mt: 1 }}>
+            <Typography variant="h2" component="h1" align="center">
+              Yet another To-do
+            </Typography>
+          </Paper>
+
+          <ToDoForm />
+
+          <ToDoList />
+        </Stack>
+      </Container>
     </div>
   );
 }
